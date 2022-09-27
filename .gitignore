@@ -1,0 +1,9 @@
+*.log
+.DS_Store
+.cache
+.env
+.sanity
+.vercel
+.vscode
+build
+node_modules

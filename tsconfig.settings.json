@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    // Settings
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "preserveConstEnums": true,
+    "skipLibCheck": true,
+
+    // Strict type-checking
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strict": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "useUnknownInCatchVariables": false,
+
+    // Additional checks
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  }
+}

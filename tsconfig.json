@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.settings",
+  "include": ["**/*.cjs", "**/*.ts", "**/*.tsx", "env.d.ts", "sanity.d.ts", "vite.config.ts"],
+  "compilerOptions": {
+    "outDir": "./dist/tsc",
+
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "noEmit": true, // Remix takes care of building everything in `remix build`.
+    "target": "ESNext",
+
+    "paths": {
+      "~/*": ["./app/*"]
+    }
+  }
+}
