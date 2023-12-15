@@ -2,9 +2,9 @@
 
 import {createClient} from '@sanity/client'
 import {enableOverlays, HistoryAdapter, HistoryAdapterNavigate} from '@sanity/overlays'
-import {useLiveMode} from '@sanity/react-loader/rsc'
+import {useLiveMode} from '@sanity/react-loader'
 import {usePathname, useRouter, useSearchParams} from 'next/navigation'
-import {useEffect, useMemo, useRef} from 'react'
+import {useEffect, useMemo, useRef, useState} from 'react'
 
 export function VisualEditing(props: {dataset: string; projectId: string; studioOrigin: string}) {
   const {dataset, projectId, studioOrigin} = props
@@ -24,17 +24,15 @@ export function VisualEditing(props: {dataset: string; projectId: string; studio
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const routerRef = useRef(router)
-  const navigateRef = useRef<HistoryAdapterNavigate>()
+  const [navigate, setNavigate] = useState<HistoryAdapterNavigate | undefined>()
 
   routerRef.current = router
 
   const history: HistoryAdapter = useMemo(
     () => ({
       subscribe(navigate) {
-        navigateRef.current = navigate
-        return () => {
-          navigateRef.current = undefined
-        }
+        setNavigate(() => navigate)
+        return () => setNavigate(undefined)
       },
       update(update) {
         switch (update.type) {
@@ -62,11 +60,13 @@ export function VisualEditing(props: {dataset: string; projectId: string; studio
   )
 
   useEffect(() => {
-    navigateRef.current?.({
-      type: 'push',
-      url: `${pathname}${searchParams?.size ? `?${searchParams}` : ''}`,
-    })
-  }, [pathname, searchParams])
+    if (navigate) {
+      navigate({
+        type: 'push',
+        url: `${pathname}${searchParams?.size ? `?${searchParams}` : ''}`,
+      })
+    }
+  }, [navigate, pathname, searchParams])
 
   useLiveMode({allowStudioOrigin: studioOrigin, client})
 
