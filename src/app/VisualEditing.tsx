@@ -2,7 +2,7 @@
 
 import {createClient} from '@sanity/client'
 import {enableOverlays, HistoryAdapter, HistoryAdapterNavigate} from '@sanity/overlays'
-import {useLiveMode} from '@sanity/react-loader'
+import {useLiveMode} from '@sanity/react-loader/rsc'
 import {usePathname, useRouter, useSearchParams} from 'next/navigation'
 import {useEffect, useMemo, useRef, useState} from 'react'
 
