@@ -1,18 +1,13 @@
 'use client'
 
 import {ArrowRightIcon} from '@sanity/icons'
-import {Box, Button, Card, Tab, TabList, TabPanel, Text} from '@sanity/ui'
+import {Box, Button, Card, Flex, Tab, TabList, TabPanel, Text} from '@sanity/ui'
 import Link from 'next/link'
 import {ReactElement, useEffect, useState} from 'react'
-import {styled} from 'styled-components'
 
 import {getArcadeQuery} from '@/lib/arcade'
 import {ArcadeFrame} from '@/lib/arcade/ArcadeFrame'
 import {CodeEditor} from '@/lib/codeEditor'
-
-const FrameCard = styled(Card)`
-  height: 200px;
-`
 
 export function CodeExample(props: {
   code: string
@@ -43,9 +38,9 @@ export function CodeExample(props: {
   return (
     <div>
       <Card overflow="hidden" radius={2} shadow={1}>
-        <FrameCard tone="transparent">
+        <Card style={{height: 200}} tone="transparent">
           <ArcadeFrame hookCode={hookCode} jsxCode={jsxCode} />
-        </FrameCard>
+        </Card>
 
         {renderError && (
           <Card padding={4} tone="critical">
@@ -54,7 +49,7 @@ export function CodeExample(props: {
         )}
 
         <Card borderTop borderBottom paddingX={4} paddingY={2}>
-          <TabList space={1} style={{textAlign: 'center'}}>
+          <TabList gap={1} style={{textAlign: 'center'}}>
             <Tab
               aria-controls="mode-jsx-panel"
               fontSize={1}
@@ -121,18 +116,18 @@ export function CodeExample(props: {
         </TabPanel>
       </Card>
 
-      <Box marginTop={2} style={{textAlign: 'right'}}>
+      <Flex justify="flex-end" marginTop={2}>
         <Button
           as={Link}
           fontSize={1}
+          gap={2}
           href={`/arcade${encodeQueryParams(arcadeQuery)}`}
           iconRight={ArrowRightIcon}
           mode="bleed"
           padding={2}
-          space={2}
           text="Open in Arcade"
         />
-      </Box>
+      </Flex>
     </div>
   )
 }

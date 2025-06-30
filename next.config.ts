@@ -1,9 +1,14 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import {createVanillaExtractPlugin} from '@vanilla-extract/next-plugin'
+import type {NextConfig} from 'next'
+
+const withVanillaExtract = createVanillaExtractPlugin()
+
+const nextConfig: NextConfig = {
   basePath: '/ui',
   compiler: {
     styledComponents: true,
   },
+  devIndicators: false,
   experimental: {
     taint: true,
   },
@@ -37,4 +42,4 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+export default withVanillaExtract(nextConfig)

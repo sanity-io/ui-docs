@@ -1,0 +1,22 @@
+html,
+body {
+  height: 100%;
+}
+
+html {
+  webkittextsizeadjust: 100%;
+  moxtextsizeadjust: 100%;
+  mstextsizeadjust: 100%;
+  textsizeadjust: 100%;
+  webkittaphighlightcolor: transparent;
+}
+
+body {
+  margin: 0;
+  webkitfontsmoothing: antialiased;
+  minwidth: 320;
+}
+
+a {
+  textdecoration: none;
+}

@@ -1,16 +1,8 @@
+import {Box} from '@sanity/ui'
 import {ReactElement, useCallback, useEffect, useRef, useState} from 'react'
-import {styled} from 'styled-components'
 
 import {useApp} from '@/app/useApp'
 import {isRecord} from '@/lib/common'
-
-const Root = styled.iframe`
-  background: none;
-  display: block;
-  width: 100%;
-  height: 100%;
-  border: 0;
-`
 
 export function ArcadeFrame({
   hookCode,
@@ -80,5 +72,7 @@ export function ArcadeFrame({
     [hookCode, jsxCode, postMessage],
   )
 
-  return <Root ref={setFrame} src={`${basePath}/arcade/frame`} />
+  return (
+    <Box as="iframe" ref={setFrame} src={`${basePath}/arcade/frame`} height="fill" width="fill" />
+  )
 }

@@ -1,38 +1,39 @@
 import {tags as t} from '@lezer/highlight'
-import {rgba, Theme_v2} from '@sanity/ui/theme'
+import {vars} from '@sanity/ui/css'
+import {ColorScheme} from '@sanity/ui/theme'
 import {createTheme} from '@uiw/codemirror-themes'
 import {Extension} from '@uiw/react-codemirror'
 
-export function getSyntaxTheme(options: {theme: Theme_v2}): Extension {
-  const {color, font} = options.theme
+export function getSyntaxTheme(options: {scheme: ColorScheme}): Extension {
+  const {scheme} = options
 
   return createTheme({
-    theme: color._dark ? 'dark' : 'light',
+    theme: scheme,
     settings: {
-      background: color.selectable.default.enabled.bg,
-      foreground: color.selectable.default.enabled.code.fg,
-      lineHighlight: color.selectable.default.enabled.bg,
-      fontFamily: font.code.family,
-      caret: color.focusRing,
-      selection: rgba(color.focusRing, 0.2),
-      selectionMatch: rgba(color.focusRing, 0.4),
-      gutterBackground: color.selectable.default.disabled.bg,
-      gutterForeground: color.selectable.default.disabled.code.fg,
-      gutterActiveForeground: color.selectable.default.enabled.fg,
+      background: vars.color.tinted.default.bg[0],
+      foreground: vars.color.tinted.default.fg[2],
+      lineHighlight: vars.color.tinted.default.bg[1],
+      fontFamily: vars.font.code.family,
+      caret: vars.color.focusRing,
+      selection: `color-mix(in oklab, transparent, ${vars.color.focusRing} 0.2)`,
+      selectionMatch: `color-mix(in oklab, transparent, ${vars.color.focusRing} 0.4)`,
+      gutterBackground: vars.color.tinted.default.bg[1],
+      gutterForeground: vars.color.tinted.default.fg[4],
+      gutterActiveForeground: vars.color.tinted.default.fg[0],
     },
     styles: [
       {
         tag: [t.heading, t.heading2, t.heading3, t.heading4, t.heading5, t.heading6],
-        color: color.selectable.default.enabled.fg,
+        color: vars.color.tinted.default.fg[0],
       },
-      {tag: t.angleBracket, color: color.selectable.default.enabled.code.fg},
-      {tag: t.atom, color: color.syntax.keyword},
-      {tag: t.attributeName, color: color.syntax.attrName},
-      {tag: t.bool, color: color.syntax.boolean},
-      {tag: t.bracket, color: color.selectable.default.enabled.code.fg},
-      {tag: t.className, color: color.syntax.className},
-      {tag: t.comment, color: color.syntax.comment},
-      {tag: t.definition(t.typeName), color: color.syntax.function},
+      {tag: t.angleBracket, color: vars.color.tinted.default.fg[2]},
+      {tag: t.atom, color: vars.color.code.token.keyword},
+      {tag: t.attributeName, color: vars.color.code.token.attrName},
+      {tag: t.bool, color: vars.color.code.token.boolean},
+      {tag: t.bracket, color: vars.color.tinted.default.fg[2]},
+      {tag: t.className, color: vars.color.code.token.className},
+      {tag: t.comment, color: vars.color.code.token.comment},
+      {tag: t.definition(t.typeName), color: vars.color.code.token.function},
       {
         tag: [
           t.definition(t.variableName),
@@ -40,21 +41,21 @@ export function getSyntaxTheme(options: {theme: Theme_v2}): Extension {
           t.className,
           t.attributeName,
         ],
-        color: color.syntax.function,
+        color: vars.color.code.token.function,
       },
       {
         tag: [t.function(t.propertyName), t.propertyName],
-        color: color.syntax.function,
+        color: vars.color.code.token.function,
       },
-      {tag: t.keyword, color: color.syntax.keyword},
-      {tag: t.null, color: color.syntax.number},
-      {tag: t.number, color: color.syntax.number},
-      {tag: t.meta, color: color.selectable.default.enabled.code.fg},
-      {tag: t.operator, color: color.syntax.operator},
-      {tag: t.propertyName, color: color.syntax.property},
-      {tag: [t.string, t.special(t.brace)], color: color.syntax.string},
-      {tag: t.tagName, color: color.syntax.className},
-      {tag: t.typeName, color: color.syntax.keyword},
+      {tag: t.keyword, color: vars.color.code.token.keyword},
+      {tag: t.null, color: vars.color.code.token.number},
+      {tag: t.number, color: vars.color.code.token.number},
+      {tag: t.meta, color: vars.color.tinted.default.fg[2]},
+      {tag: t.operator, color: vars.color.code.token.operator},
+      {tag: t.propertyName, color: vars.color.code.token.property},
+      {tag: [t.string, t.special(t.brace)], color: vars.color.code.token.string},
+      {tag: t.tagName, color: vars.color.code.token.className},
+      {tag: t.typeName, color: vars.color.code.token.keyword},
     ],
   })
 }

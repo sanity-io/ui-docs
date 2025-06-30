@@ -1,9 +1,10 @@
 'use client'
 
+import '@sanity/ui/css/index.css'
+
 import {WrappedValue} from '@sanity/react-loader/jsx'
-import {LayerProvider, ThemeProvider, ToastProvider, usePrefersDark} from '@sanity/ui'
-import {buildTheme, ThemeColorSchemeKey} from '@sanity/ui/theme'
-import {Inter} from 'next/font/google'
+import {LayerProvider, Root, ToastProvider, usePrefersDark} from '@sanity/ui'
+import {ColorScheme} from '@sanity/ui/theme'
 import {ReactNode, useEffect, useMemo, useState} from 'react'
 import Refractor from 'react-refractor'
 import bash from 'refractor/lang/bash'
@@ -13,19 +14,13 @@ import tsx from 'refractor/lang/tsx'
 import {GlobalData} from '@/lib/data'
 import {parseNav} from '@/lib/nav'
 import {getImageUrlBuilder} from '@/lib/sanity/image'
-import {StyledComponentsRegistry} from '@/lib/styled/registry'
 
 import {AppContext, AppContextValue} from './AppContext'
-import {GlobalStyle} from './GlobalStyle'
-import {VisualEditing} from './VisualEditing'
+import {DisableDraftMode} from './DisableDraftMode'
 
 Refractor.registerLanguage(bash)
 Refractor.registerLanguage(json)
 Refractor.registerLanguage(tsx)
-
-const inter = Inter({subsets: ['latin']})
-
-const theme = buildTheme()
 
 export function RootLayout(props: {
   children?: ReactNode
@@ -35,20 +30,12 @@ export function RootLayout(props: {
   hintHiddenContent: boolean
   projectId: string
   studioOrigin?: string
-  prefersDarkServerSnapshot: boolean
+  initialScheme: ColorScheme | null
 }) {
-  const {
-    children,
-    data,
-    dataset,
-    draftMode,
-    hintHiddenContent,
-    projectId,
-    prefersDarkServerSnapshot,
-  } = props
-  const prefersDark = usePrefersDark(() => prefersDarkServerSnapshot)
+  const {children, data, dataset, draftMode, hintHiddenContent, initialScheme, projectId} = props
+  const prefersDark = usePrefersDark(() => initialScheme === 'dark')
 
-  const [colorScheme, setColorScheme] = useState<ThemeColorSchemeKey | 'system'>('system')
+  const [scheme, setColorScheme] = useState<ColorScheme | 'system'>('system')
 
   useEffect(() => {
     const localColorScheme = window.localStorage.getItem('sanityStudio:ui:colorScheme') || 'system'
@@ -60,12 +47,12 @@ export function RootLayout(props: {
       // If the restored value is invalid then ignore it
       return
     }
-    if (localColorScheme !== colorScheme) {
+    if (localColorScheme !== scheme) {
       // If the value from local storage is different from the current state, update the state
       // this typically only happens on mount
       setColorScheme(localColorScheme)
     }
-  }, [colorScheme])
+  }, [scheme])
 
   const {nav: navNode = null, settings = null} = data || {}
 
@@ -74,7 +61,7 @@ export function RootLayout(props: {
   const app: AppContextValue = useMemo(
     () => ({
       basePath: '/ui',
-      colorScheme,
+      colorScheme: scheme,
       dataset,
       features: {hintHiddenContent},
       imageUrlBuilder: getImageUrlBuilder({dataset, projectId}).imageUrlBuilder,
@@ -86,32 +73,36 @@ export function RootLayout(props: {
       },
       settings,
     }),
-    [colorScheme, dataset, hintHiddenContent, nav, projectId, setColorScheme, settings],
+    [scheme, dataset, hintHiddenContent, nav, projectId, setColorScheme, settings],
   )
 
   return (
-    <html lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-      </head>
-      <body className={inter.className}>
-        <StyledComponentsRegistry>
-          <ThemeProvider
-            scheme={colorScheme === 'system' ? (prefersDark ? 'dark' : 'light') : colorScheme}
-            theme={theme}
-          >
-            <GlobalStyle />
-            <AppContext.Provider value={app}>
-              <LayerProvider>
-                <ToastProvider>{children}</ToastProvider>
-              </LayerProvider>
-            </AppContext.Provider>
-          </ThemeProvider>
-        </StyledComponentsRegistry>
-        {draftMode && <VisualEditing dataset={dataset} projectId={projectId} />}
-      </body>
-    </html>
+    <AppContext.Provider value={app}>
+      <Root
+        height="fill"
+        lang="en"
+        overflow="auto"
+        scheme={scheme === 'system' ? (prefersDark ? 'dark' : 'light') : scheme}
+      >
+        {/* <head>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+          <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        </head> */}
+
+        {/* <Box as="body" className={inter.className} height="fill"> */}
+        <LayerProvider>
+          <ToastProvider>{children}</ToastProvider>
+        </LayerProvider>
+
+        {draftMode && (
+          <>
+            {/* <VisualEditing /> */}
+            <DisableDraftMode />
+          </>
+        )}
+        {/* </Box> */}
+      </Root>
+    </AppContext.Provider>
   )
 }

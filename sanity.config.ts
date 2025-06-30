@@ -1,4 +1,4 @@
-import {codeInput} from '@sanity/code-input'
+// import {codeInput} from '@sanity/code-input'
 import {gray} from '@sanity/color'
 import {SanityMonogram} from '@sanity/logos'
 import {createElement} from 'react'
@@ -20,7 +20,7 @@ const prodStudio = defineConfig<WorkspaceOptions>({
   projectId: 'mos42crl',
   dataset: 'production',
   plugins: [
-    codeInput(),
+    // codeInput(),
     structureTool({structure}),
     presentationTool({
       previewUrl: {
@@ -43,7 +43,7 @@ const devStudio = defineConfig<WorkspaceOptions>({
   projectId: 'mos42crl',
   dataset: 'development',
   plugins: [
-    codeInput(),
+    // codeInput(),
     structureTool({structure}),
     presentationTool({
       previewUrl: {

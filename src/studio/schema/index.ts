@@ -1,4 +1,4 @@
-import {SchemaPluginOptions} from 'sanity'
+import {defineField, defineType, SchemaPluginOptions} from 'sanity'
 
 import {articleType} from './article/article'
 import {navItemType, navType} from './nav'
@@ -17,5 +17,20 @@ export const schema: SchemaPluginOptions = {
     navType,
     screenType,
     settingsType,
+
+    // code
+    defineType({
+      type: 'object',
+      name: 'code',
+      fields: [
+        defineField({
+          name: 'language',
+          type: 'string',
+          options: {
+            list: ['javascript', 'typescript', 'html', 'css', 'json', 'yaml', 'markdown'],
+          },
+        }),
+      ],
+    }),
   ],
 }

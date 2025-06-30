@@ -4,7 +4,6 @@ import * as icons from '@sanity/icons'
 import * as ui from '@sanity/ui'
 import {Card, Code, ErrorBoundary, Text} from '@sanity/ui'
 import React, {ReactElement, useCallback, useEffect, useState} from 'react'
-import {keyframes, styled} from 'styled-components'
 
 import {isRecord} from '@/lib/common'
 import {evalComponent, EvalComponentResult, ready as readyCheck} from '@/lib/ide'
@@ -56,7 +55,7 @@ export default function ArcadeFrameRoute(): ReactElement {
       evalComponent({
         hookCode,
         jsxCode,
-        scope: {...icons, ...ui, ...React, React, styled, keyframes},
+        scope: {...icons, ...ui, ...React, React},
       }),
     )
   }, [hookCode, jsxCode, evalReady])
