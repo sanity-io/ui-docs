@@ -36,8 +36,8 @@ importers:
         specifier: ^2.2.1
         version: 2.2.1(@sanity/color@3.0.6)(react@19.2.5)
       '@sanity/preview-url-secret':
-        specifier: ^2.1.11
-        version: 2.1.11(@sanity/client@7.6.0)
+        specifier: ^3.0.0
+        version: 3.0.0(@sanity/client@7.6.0)(@sanity/icons@3.7.4(react@19.2.5))(sanity@3.95.0(@emotion/is-prop-valid@1.2.2)(@types/node@24.0.7)(@types/react@19.1.8)(immer@10.1.1)(jiti@2.4.2)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(styled-components@6.1.19(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(terser@5.39.0)(typescript@5.8.3)(yaml@2.7.0))
       '@sanity/react-loader':
         specifier: ^1.11.11
         version: 1.11.11(@sanity/types@3.95.0(@types/react@19.1.8))(react@19.2.5)(typescript@5.8.3)
@@ -2157,6 +2157,19 @@ packages:
     peerDependencies:
       '@sanity/client': ^7.1.0
 
+  '@sanity/preview-url-secret@3.0.0':
+    resolution: {integrity: sha512-O7o6hsxbMp7y20znU9seV6h8WeTS+U4ovtqLd6j3oaSRyuriZenN/O6K39LJaKC2TZY1RUsYRvcv5/rNq7sAEQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@sanity/client': ^7.12.0
+      '@sanity/icons': '*'
+      sanity: '*'
+    peerDependenciesMeta:
+      '@sanity/icons':
+        optional: true
+      sanity:
+        optional: true
+
   '@sanity/react-loader@1.11.11':
     resolution: {integrity: sha512-th3kR1n7U/TP401LMV/qPKxnd9LEfr1ti5KcFq+Puok3NqekTeTnJQCQc+CP1EBHgBi4AM7E1IhvLd3WHd4vVQ==}
     engines: {node: '>=18'}
@@ -3893,11 +3906,13 @@ packages:
 
   glob@10.4.5:
     resolution: {integrity: sha512-7Bv8RF0k6xjo7d4A/PxYLbUCfb6c+Vpd2/mB2yRDlew7Jb5hEXiCD9ibfO7wpk8i4sevK6DFny9h7EYbM3/sHg==}
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
     hasBin: true
 
   glob@11.0.1:
     resolution: {integrity: sha512-zrQDm8XPnYEKawJScsnM0QzobJxlT/kHOOlRTio8IH/GrmxRE5fjllkzdaHclIuNjUQTJYH2xHNIGfdpJkDJUw==}
     engines: {node: 20 || >=22}
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
     hasBin: true
 
   global@4.4.0:
@@ -5772,6 +5787,7 @@ packages:
   tar@7.4.3:
     resolution: {integrity: sha512-5S7Va8hKfV7W5U6g3aYxXmlPoZVAwUMy9AOKyF2fVuZa2UD3qZjg578OrLRt8PcNN1PleVaL/5/yYATNL0ICUw==}
     engines: {node: '>=18'}
+    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   terser@5.39.0:
     resolution: {integrity: sha512-LBAhFyLho16harJoWMg/nZsQYgTrg5jXOn2nCYjRUcZZEdE3qa2zb8QEDRUGVZBW4rlazf2fxkg8tztybTaqWw==}
@@ -6086,6 +6102,7 @@ packages:
 
   uuid@8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
 
   uuidv7@0.4.4:
@@ -6248,6 +6265,7 @@ packages:
   whatwg-encoding@3.1.1:
     resolution: {integrity: sha512-6qN4hJdMwfYBtE3YBTTHhoeuUrDBPZmbQaxWAqSALV/MeEnR5z1xd8UKud2RAkFoPkmB+hli1TZSnyi84xz1vQ==}
     engines: {node: '>=18'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-mimetype@4.0.0:
     resolution: {integrity: sha512-QaKxh0eNIi2mE9p2vEdzfagOKHCcj1pJ56EEHGQOVxp8r9/iszLUUV7v89x9O1p/T+NlTM5W7jW6+cz4Fq1YVg==}
@@ -8713,6 +8731,14 @@ snapshots:
     dependencies:
       '@sanity/client': 7.6.0
       '@sanity/uuid': 3.0.2
+
+  '@sanity/preview-url-secret@3.0.0(@sanity/client@7.6.0)(@sanity/icons@3.7.4(react@19.2.5))(sanity@3.95.0(@emotion/is-prop-valid@1.2.2)(@types/node@24.0.7)(@types/react@19.1.8)(immer@10.1.1)(jiti@2.4.2)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(styled-components@6.1.19(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(terser@5.39.0)(typescript@5.8.3)(yaml@2.7.0))':
+    dependencies:
+      '@sanity/client': 7.6.0
+      '@sanity/uuid': 3.0.2
+    optionalDependencies:
+      '@sanity/icons': 3.7.4(react@19.2.5)
+      sanity: 3.95.0(@emotion/is-prop-valid@1.2.2)(@types/node@24.0.7)(@types/react@19.1.8)(immer@10.1.1)(jiti@2.4.2)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(styled-components@6.1.19(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(terser@5.39.0)(typescript@5.8.3)(yaml@2.7.0)
 
   '@sanity/react-loader@1.11.11(@sanity/types@3.95.0(@types/react@19.1.8))(react@19.2.5)(typescript@5.8.3)':
     dependencies:
